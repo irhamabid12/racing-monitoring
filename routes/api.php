@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\ApiKeyMiddleware;
 use App\Http\Controllers\ListerningDataController;
 
 Route::get('/user', function (Request $request) {
@@ -9,4 +10,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 # route api untuk insert data parameter alat
-Route::post('/pushdata', [ListerningDataController::class, 'pushdata']);
+Route::post('/pushdata', [ListerningDataController::class, 'pushdata'])->middleware([ApiKeyMiddleware::class]);

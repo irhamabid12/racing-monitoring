@@ -24,8 +24,8 @@ class ListerningDataController extends Controller
             'speed' => $request->speed ?? null,
             'cadence' => $request->cadence ?? null,
             'heartbeat' => $request->heartbeat ?? null,
-            'tilt' => null,
-            'port' => "1",
+            'latitude' => $request->latitude ?? null,
+            'longitude' => $request->longitude ?? null,
             'created_at' => Carbon::now()
         ]);
 
@@ -33,8 +33,8 @@ class ListerningDataController extends Controller
             'speed' => $request->speed ?? null,
             'cadence' => $request->cadence ?? null,
             'heartbeat' => $request->heartbeat ?? null,
-            // 'tilt' => $request->tilt ?? null,
-            'port' => "1",
+            'latitude' => $request->latitude ?? null,
+            'longitude' => $request->longitude ?? null,
             'created_at' => Carbon::now()
         ];
 

@@ -36,10 +36,7 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request)
-    {
-        $controller = new ListerningDataController();
-        $controller->stopQueueWorker($request);
-        
+    {   
         Auth::logout();
         return redirect('/login');
     }
