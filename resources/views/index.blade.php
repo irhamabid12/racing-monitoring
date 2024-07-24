@@ -160,6 +160,24 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script>
+        var map = L.map('map').setView([-7.308629, 112.693482], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        new L.GPX('{{ asset('assets/2024-06-14_1647264384_Test_Road.gpx') }}', {
+            async: true
+        }).on('loaded', function(e) {
+            map.fitBounds(e.target.getBounds());
+        }).addTo(map);
+
+        // Add a marker to the specified latitude and longitude
+        var marker = L.marker([-7.308629, 112.693482]).addTo(map);
+
+        // Add a popup to the marker
+        marker.bindPopup("<b>Start and finish</b>").openPopup();
+
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
@@ -180,6 +198,14 @@
                 clearTimeout(eventTimeout);
             }
             eventTimeout = setTimeout(stopTimer, 3000); // Stop the timer if no events are received for 10 seconds
+
+            // Add a marker to the specified latitude and longitude
+            var marker = L.marker([-7.308629, 112.693482]).addTo(map);
+            var marker2 = L.marker([event.data.latitude, event.data.longitude]).addTo(map);
+
+            // Add a popup to the marker
+            marker.bindPopup("<b>Start and finish</b>").openPopup();
+            marker2.bindPopup("<b>Posisi</b><br>" + document.getElementById('timer').textContent).openPopup();
         });
 
         let hours = 0;
@@ -221,18 +247,6 @@
                 document.getElementById("status").innerHTML = '<i class="bi bi-x-circle"></i> Inactive';
             }
         }
-
-         var map = L.map('map').setView([51.505, -0.09], 13);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        new L.GPX('{{ asset('assets/2024-06-14_1647264384_Test_Road.gpx') }}', {
-            async: true
-        }).on('loaded', function(e) {
-            map.fitBounds(e.target.getBounds());
-        }).addTo(map);
     </script>
 </body>
 
