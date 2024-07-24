@@ -21,3 +21,6 @@ Route::post('/insertNewUser', [RegistrationController::class, 'insertNewUser'])-
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [ListerningDataController::class, 'index'])->name('dashboard')->middleware('auth');
 
+Route::get('/test', function () {
+    return view('test');
+})->name('test');

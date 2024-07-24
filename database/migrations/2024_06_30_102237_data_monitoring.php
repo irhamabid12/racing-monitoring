@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('data_monitoring', function (Blueprint $table) {
             $table->id();
-            $table->string('speed')->nullable();
-            $table->string('cadence')->nullable();
-            $table->string('heartbeat')->nullable();
-            $table->string('tilt')->nullable();
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
+            $table->float('speed')->nullable();
+            $table->float('cadence')->nullable();
+            $table->integer('heartbeat')->nullable();
+            $table->float('tilt')->nullable();
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
             $table->dateTime('created_at')->nullable();
         });
     }

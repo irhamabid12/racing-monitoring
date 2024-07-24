@@ -13,6 +13,9 @@
             display: none;
         }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 </head>
 <style>
     .user-logo {
@@ -24,6 +27,10 @@
         object-fit: cover;
         background-color: gray;
     }
+
+    #map {
+            height: 500px;
+        }
 </style>
 
 <body>
@@ -108,7 +115,8 @@
         <br>
         <div class="card shadow">
             <div class="card-body">
-                <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1NIUNaf6Bzk7_6KbOSlRUvlzuUOxVn5E&ehbc=2E312F&noprof=1" width="100%" height="480"></iframe>
+                <div id="map"></div>
+
             </div>
         </div>
 
@@ -213,6 +221,18 @@
                 document.getElementById("status").innerHTML = '<i class="bi bi-x-circle"></i> Inactive';
             }
         }
+
+         var map = L.map('map').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        new L.GPX('{{ asset('assets/2024-06-14_1647264384_Test_Road.gpx') }}', {
+            async: true
+        }).on('loaded', function(e) {
+            map.fitBounds(e.target.getBounds());
+        }).addTo(map);
     </script>
 </body>
 
