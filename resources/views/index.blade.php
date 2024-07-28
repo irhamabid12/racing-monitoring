@@ -172,11 +172,12 @@
             map.fitBounds(e.target.getBounds());
         }).addTo(map);
 
-        // Add a marker to the specified latitude and longitude
-        var marker = L.marker([-7.308629, 112.693482]).addTo(map);
+        var startMarker = L.marker([-7.308629, 112.693482]).addTo(map);
+        startMarker.bindPopup("<b>Start and finish</b>").openPopup();
 
-        // Add a popup to the marker
-        marker.bindPopup("<b>Start and finish</b>").openPopup();
+        var positionMarker = L.marker([-7.308629, 112.693482]).addTo(map);
+        positionMarker.bindPopup("<b>Posisi</b>").openPopup();
+
 
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
@@ -199,13 +200,9 @@
             }
             eventTimeout = setTimeout(stopTimer, 3000); // Stop the timer if no events are received for 10 seconds
 
-            // Add a marker to the specified latitude and longitude
-            var marker = L.marker([-7.308629, 112.693482]).addTo(map);
-            var marker2 = L.marker([event.data.latitude, event.data.longitude]).addTo(map);
-
-            // Add a popup to the marker
-            marker.bindPopup("<b>Start and finish</b>").openPopup();
-            marker2.bindPopup("<b>Posisi</b><br>" + document.getElementById('timer').textContent).openPopup();
+            // Update the position of the positionMarker
+            positionMarker.setLatLng([event.data.latitude, event.data.longitude]);
+            positionMarker.getPopup().setContent("<b>Posisi</b>");
         });
 
         let hours = 0;
